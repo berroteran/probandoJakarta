@@ -3,7 +3,33 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
-  <persistence-unit name="default">
 
-  </persistence-unit>
+
+    <!-- esta es la conexion para todo lo nuevo y desarrollo propio. -->
+    <persistence-unit name="SisifoDataSource" >
+        <jta-data-source>java:comp/SisifoDataSource</jta-data-source>
+        <properties>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mariadb://3.218.207.207:3306/sisifo"/>
+            <property name="jakarta.persistence.jdbc.user" value="nominadev"/>
+            <property name="jakarta.persistence.jdbc.password" value="${DB_PASSWORD}"/>
+            <property name="jakarta.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
+        </properties>
+    </persistence-unit>
+
+    <!-- esta es la conexion para comunicarse con los datos de ERPNext -->
+    <persistence-unit name="erpNextDataSource" >
+        <jta-data-source>java:comp/erpNextDataSource</jta-data-source>
+        <class>com.berroteran.sisifo.dominio.erpnext.TabEmployee</class>
+        <class>com.berroteran.sisifo.dominio.erpnext.TabPaymentEntry</class>
+        <properties>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mariadb://3.218.207.207:3306/developer"/>
+            <property name="jakarta.persistence.jdbc.user" value="nominadev2"/>
+            <property name="jakarta.persistence.jdbc.password" value="mypassword2"/>
+            <property name="jakarta.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
+        </properties>
+    </persistence-unit>
+
+
 </persistence>
